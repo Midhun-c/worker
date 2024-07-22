@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Dashboard</h2>
+<a href="{{ url_for('add_worker') }}" class="btn btn-success">Add Worker</a>
+<table class="table table-striped mt-4">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Photo</th>
+            <th>Employment History</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for worker in workers %}
+        <tr>
+            <td>{{ worker.name }}</td>
+            <td>{{ worker.location }}</td>
+            <td><img src="{{ worker.photo }}" alt="Photo" style="width: 50px;"></td>
+            <td>{{ worker.employment_history }}</td>
+            <td>
+                <a href="{{ url_for('edit_worker', worker_id=worker._id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <form action="{{ url_for('delete_worker', worker_id=worker._id) }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
